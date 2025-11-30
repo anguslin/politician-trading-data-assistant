@@ -62,6 +62,18 @@ header h1 {
     font-weight: 400;
 }
 
+header a {
+    color: white;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.5);
+    transition: text-decoration-color 0.2s ease, opacity 0.2s ease;
+}
+
+header a:hover {
+    text-decoration-color: rgba(255, 255, 255, 1);
+    opacity: 1;
+}
+
 main {
     flex: 1;
     display: flex;
@@ -463,6 +475,17 @@ footer {
     border-top: 1px solid var(--border-color);
     color: var(--text-secondary);
     font-size: 14px;
+}
+
+footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+footer a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
 }
 
 /* Responsive design */

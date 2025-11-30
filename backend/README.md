@@ -1,6 +1,6 @@
-# LLM MCP Bridge - Backend
+# Politician Trading Data Assistant - Backend
 
-Node.js + Express backend that connects a static frontend (GitHub Pages) to the Hugging Face LLM API and the MCP Capitol Trades server over the MCP protocol. It detects when MCP data is needed, fetches the data, and asks the LLM to summarize the response for the user.
+Node.js + Express backend that connects a static frontend (GitHub Pages) to the Hugging Face LLM API and the [MCP Capitol Trades](https://www.npmjs.com/package/@anguslin/mcp-capitol-trades) server over the Model Context Protocol (MCP). It detects when MCP data is needed, fetches the data, and asks the LLM to summarize the response for the user.
 
 ## Installation
 
@@ -65,7 +65,7 @@ To validate your deployed instance (e.g. Render), run:
 ```bash
 npm run test:remote
 ```
-The `test:remote` script uses a fixed `BASE_URL=https://llm-mcp-bridge.onrender.com`. Override that variable if your deployment lives elsewhere.
+The `test:remote` script uses a fixed `BASE_URL=https://politician-trading-data-assistant.onrender.com`. Override that variable if your deployment lives elsewhere.
 
 ### Test the LLM service directly
 To test the Hugging Face LLM integration in isolation:
@@ -123,9 +123,9 @@ Health check endpoint.
 - `NODE_ENV` (optional): Environment mode (development/production)
 - `TRUST_PROXY` (optional but recommended in production): Express `trust proxy` setting; use `1` on Render
 
-## MCP Functions
+## MCP Integration
 
-The server integrates with the following MCP Capitol Trades functions:
+The server integrates with the [MCP Capitol Trades](https://www.npmjs.com/package/@anguslin/mcp-capitol-trades) package via the Model Context Protocol. The following MCP functions are available:
 
 - `get_top_traded_assets`: Get most traded assets by politicians
 - `get_politician_stats`: Get statistics for a specific politician
@@ -133,6 +133,8 @@ The server integrates with the following MCP Capitol Trades functions:
 - `get_buy_momentum_assets`: Get assets with high buy momentum
 - `get_party_buy_momentum`: Get buy momentum by political party
 - `get_politician_trades`: Get politician trades with filters
+
+The LLM automatically selects the appropriate MCP function based on user queries, and the system includes fallback keyword-based detection if JSON parsing fails.
 
 ## Deployment on Render
 
@@ -158,9 +160,10 @@ The server integrates with the following MCP Capitol Trades functions:
 ## Notes
 
 - Conversation history is stored in `history.json` (auto-created at startup and gitignored)
-- Each user's history is limited to the last 30 messages
-- Render's disk is ephemeral: `history.json` resets on deploys. Use an external store if you need persistence.
+- Each user's history is limited to the last 30 messages (configurable via `MAX_MESSAGES_PER_USER` in `historyService.js`)
+- Render's disk is ephemeral: `history.json` resets on deploys. Use an external store (e.g., database) if you need persistence across deployments
 - The LLM attempts to parse user requests and automatically call appropriate MCP functions
-- If JSON parsing fails, the system falls back gracefully without MCP data
+- If JSON parsing fails, the system falls back gracefully using keyword-based detection
 - The project uses the official `@huggingface/inference` SDK for LLM integration, which handles retries and error handling automatically
+- The MCP client connects via stdio transport and spawns the MCP server process as needed
 

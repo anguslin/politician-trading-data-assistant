@@ -1,11 +1,11 @@
 # Project Architecture
 
-This document describes the modular structure of the LLM MCP Bridge backend.
+This document describes the modular structure of the Politician Trading Data Assistant backend.
 
 ## Project Structure
 
 ```
-llm-mcp-bridge/
+politician-trading-data-assistant/
 ├── config/
 │   └── constants.js          # Environment variables and constants
 ├── middleware/

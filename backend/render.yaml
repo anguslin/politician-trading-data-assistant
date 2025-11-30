@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: llm-mcp-bridge
+    name: politician-trading-data-assistant
     env: node
     buildCommand: npm install
     startCommand: npm start

@@ -59,7 +59,7 @@ async function getMCPClient() {
     // Create MCP client
     mcpClient = new Client(
       {
-        name: 'llm-mcp-bridge',
+        name: 'politician-trading-data-assistant',
         version: '1.0.0',
       },
       {

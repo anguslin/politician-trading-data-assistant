@@ -1,14 +1,16 @@
-# LLM MCP Bridge - Frontend UI
+# Politician Trading Data Assistant - Frontend UI
 
-A static web frontend for the LLM MCP Bridge, designed to be hosted on GitHub Pages.
+A static web frontend for Politician Trading Data Assistant, designed to be hosted on GitHub Pages. This frontend provides a modern chat interface that connects to the backend API to query politician trading data using the [MCP Capitol Trades](https://www.npmjs.com/package/@anguslin/mcp-capitol-trades) package.
 
 ## Features
 
-- Clean, modern chat interface
+- Clean, modern chat interface with markdown support
 - Real-time communication with the backend API
-- Displays both LLM responses and MCP data
+- Displays both LLM responses and MCP data with formatted output
 - Responsive design for mobile and desktop
-- Error handling and loading states
+- Error handling and loading states with progress indicators
+- Auto-detection of local vs production backend URLs
+- Conversation history persistence via localStorage
 
 ## Setup for GitHub Pages
 
@@ -30,17 +32,10 @@ const API_KEY = 'your-api-key-here'; // Must match backend API_KEY
 // Update the production URL below if you deploy somewhere else:
 const API_BASE_URL = isLocalDevelopment 
     ? 'http://localhost:3000' 
-    : 'https://llm-mcp-bridge.onrender.com';
+    : 'https://politician-trading-data-assistant.onrender.com';
 ```
 
 The script automatically targets `http://localhost:3000` when opened on `localhost/127.0.0.1`, so you only need to change the production URL string if your backend lives elsewhere.
-
-**⚠️ Important:** If you hardcode the API key:
-- It will be visible in your GitHub repository
-- It will be visible in the deployed site's JavaScript
-- Anyone can extract and use it
-- **Use a separate, limited API key for public use**
-- **Implement strict rate limiting on your backend**
 
 ### 2. Deploy to GitHub Pages
 
@@ -109,10 +104,11 @@ Then modify `app.js` to read from these variables during build.
 
 ```
 ui/
-├── index.html      # Main HTML file
-├── styles.css      # Styling
-├── app.js          # JavaScript application logic
-└── README.md       # This file
+├── index.html      # Main HTML file with chat interface
+├── styles.css      # Styling and responsive design
+├── app.js          # JavaScript application logic and API communication
+├── README.md       # This file
+└── SECURITY.md     # Security considerations and best practices
 ```
 
 ## Customization

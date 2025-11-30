@@ -1,7 +1,7 @@
 {
-  "name": "llm-mcp-bridge",
+  "name": "politician-trading-data-assistant",
   "version": "1.0.0",
-  "description": "Node.js + Express backend connecting frontend to Hugging Face LLM API and MCP Capitol Trades server",
+  "description": "Node.js + Express backend for Politician Trading Data Assistant - connecting frontend to Hugging Face LLM API and MCP Capitol Trades server",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -10,8 +10,7 @@
     "start:local": "cross-env NODE_ENV=development node server.js",
     "dev:local": "cross-env NODE_ENV=development node --watch server.js",
     "test": "node scripts/testServer.js",
-    "test:local": "node scripts/testServer.js",
-    "test:remote": "cross-env BASE_URL=https://llm-mcp-bridge.onrender.com node scripts/testServer.js",
+    "test:remote": "cross-env BASE_URL=https://politician-trading-data-assistant.onrender.com node scripts/testServer.js",
     "test:llm": "node scripts/testLLM.js"
   },
   "keywords": [

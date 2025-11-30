@@ -7,7 +7,7 @@ const isLocalDevelopment = window.location.hostname === 'localhost' ||
 
 const API_BASE_URL = isLocalDevelopment 
     ? 'http://localhost:3000'  // Local backend
-    : 'https://llm-mcp-bridge.onrender.com'; // Production backend (update this to your deployed URL)
+    : 'https://politician-trading-data-assistant.onrender.com'; // Production backend (update this to your deployed URL)
 
 const API_KEY = 'VZnKldn7Gw0qm3vSyYTdyQfFoLEBwsjWrQm7famO'; // Must match your backend API_KEY
 const USER_ID = 'github-pages-user-' + Math.random().toString(36).substring(7);
@@ -80,15 +80,13 @@ function addLoadingMessage() {
     messageDiv.appendChild(textSpan);
     chatMessages.appendChild(messageDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
-    
-    // Update loading message based on time with more stages
+
     const progressStages = [
         { delay: 0, message: 'Analyzing your question...' },
-        { delay: 1500, message: 'Determining data needs...' },
-        { delay: 3000, message: 'Fetching data from Capitol Trades...' },
-        { delay: 5000, message: 'Processing data...' },
-        { delay: 7000, message: 'Formatting response...' },
-        { delay: 10000, message: 'Almost done...' }
+        { delay: 3000, message: 'Determining data needs...' },
+        { delay: 6000, message: 'Fetching data from Capitol Trades...' },
+        { delay: 9000, message: 'Processing data...' },
+        { delay: 12000, message: 'Almost done...' }
     ];
     
     progressStages.forEach((stage) => {
@@ -103,7 +101,6 @@ function addLoadingMessage() {
     
     // Store reference to text span for easy updates
     messageDiv._textSpan = textSpan;
-    
     return messageDiv;
 }
 
@@ -216,17 +213,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Check API configuration on load
-    if (API_KEY === 'your-api-key-here') {
-        const warningDiv = document.createElement('div');
-        warningDiv.className = 'message error';
-        warningDiv.style.margin = '16px 24px';
-        warningDiv.innerHTML = `
-            <p>⚠️ Configuration Required</p>
-            <p style="font-size: 12px; margin-top: 8px;">
-                Please set your API_KEY in app.js or configure it as an environment variable for GitHub Pages.
-            </p>
-        `;
-        chatMessages.insertBefore(warningDiv, chatMessages.firstChild);
-    }
 });
