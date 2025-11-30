@@ -8,7 +8,8 @@ A static web frontend for Politician Trading Data Assistant, designed to be host
 - Real-time communication with the backend API
 - Displays both LLM responses and MCP data with formatted output
 - Responsive design for mobile and desktop
-- Error handling and loading states with progress indicators
+- Error handling and loading states with animated progress bar (up to 45 seconds)
+- "How it works" button with architecture modal explaining the system
 - Auto-detection of local vs production backend URLs
 - Conversation history persistence via localStorage
 

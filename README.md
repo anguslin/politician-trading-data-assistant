@@ -92,7 +92,8 @@ See [ui/README.md](./ui/README.md) for detailed frontend documentation.
   - Modern, responsive chat interface
   - Real-time communication with backend API
   - Displays LLM responses and MCP data with markdown formatting
-  - Error handling and loading states with progress indicators
+  - Error handling and loading states with animated progress bar (up to 45 seconds)
+  - "How it works" button with architecture modal explaining the system
   - Auto-detection of local vs production backend URLs
 
 ## Running Locally (Full Stack)

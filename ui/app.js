@@ -67,8 +67,29 @@ function addMessage(content, type = 'assistant') {
 function addLoadingMessage() {
     const messageDiv = document.createElement('div');
     messageDiv.className = 'message loading';
+    
+    // Create progress bar container
+    const progressBarContainer = document.createElement('div');
+    progressBarContainer.className = 'progress-bar-container';
+    
+    const progressBar = document.createElement('div');
+    progressBar.className = 'progress-bar';
+    
+    const progressBarFill = document.createElement('div');
+    progressBarFill.className = 'progress-bar-fill';
+    
+    progressBar.appendChild(progressBarFill);
+    progressBarContainer.appendChild(progressBar);
+    
+    // Create text span for status messages
     const textSpan = document.createElement('span');
-    textSpan.textContent = 'Analyzing your question...';
+    textSpan.className = 'loading-text';
+    textSpan.textContent = 'Analyzing your question... (This may take up to 45 seconds)';
+    
+    // Create suggestion text
+    const suggestionSpan = document.createElement('span');
+    suggestionSpan.className = 'loading-suggestion';
+    suggestionSpan.innerHTML = '💡 While waiting, check out <button class="how-it-works-link">How it works</button> to learn more!';
     
     messageDiv.innerHTML = `
         <div class="loading-dots">
@@ -77,16 +98,30 @@ function addLoadingMessage() {
             <div class="loading-dot"></div>
         </div>
     `;
+    messageDiv.appendChild(progressBarContainer);
     messageDiv.appendChild(textSpan);
+    messageDiv.appendChild(suggestionSpan);
     chatMessages.appendChild(messageDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
+    // Animate progress bar over 45 seconds
+    const totalDuration = 45000; // 45 seconds
+    const startTime = Date.now();
+    
+    const animateProgress = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min((elapsed / totalDuration) * 100, 100);
+        progressBarFill.style.width = `${progress}%`;
+        
+        if (progress < 100) {
+            requestAnimationFrame(animateProgress);
+        }
+    };
+    animateProgress();
+
     const progressStages = [
-        { delay: 0, message: 'Analyzing your question...' },
-        { delay: 3000, message: 'Determining data needs...' },
-        { delay: 6000, message: 'Fetching data from Capitol Trades...' },
-        { delay: 9000, message: 'Processing data...' },
-        { delay: 12000, message: 'Almost done...' }
+        { delay: 0, message: 'Analyzing your question... (This may take up to 45 seconds)' },
+        { delay: 20000, message: 'Processing your request... (This may take up to 45 seconds)' }
     ];
     
     progressStages.forEach((stage) => {
@@ -99,8 +134,20 @@ function addLoadingMessage() {
         }
     });
     
+    // Add click handler for "How it works" button
+    const howItWorksBtn = messageDiv.querySelector('.how-it-works-link');
+    if (howItWorksBtn) {
+        howItWorksBtn.addEventListener('click', () => {
+            const architectureBtn = document.getElementById('architecture-btn');
+            if (architectureBtn) {
+                architectureBtn.click();
+            }
+        });
+    }
+    
     // Store reference to text span for easy updates
     messageDiv._textSpan = textSpan;
+    messageDiv._progressBarFill = progressBarFill;
     return messageDiv;
 }
 
@@ -213,4 +260,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Architecture Modal functionality
+    const architectureBtn = document.getElementById('architecture-btn');
+    const architectureModal = document.getElementById('architecture-modal');
+    const architectureClose = document.getElementById('architecture-close');
+    const architectureOverlay = architectureModal?.querySelector('.architecture-modal-overlay');
+
+    function openArchitectureModal() {
+        if (architectureModal) {
+            architectureModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+    }
+
+    function closeArchitectureModal() {
+        if (architectureModal) {
+            architectureModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+    }
+
+    if (architectureBtn) {
+        architectureBtn.addEventListener('click', openArchitectureModal);
+    }
+
+    if (architectureClose) {
+        architectureClose.addEventListener('click', closeArchitectureModal);
+    }
+
+    if (architectureOverlay) {
+        architectureOverlay.addEventListener('click', closeArchitectureModal);
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && architectureModal?.classList.contains('active')) {
+            closeArchitectureModal();
+        }
+    });
 });

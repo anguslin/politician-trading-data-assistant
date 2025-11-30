@@ -11,8 +11,28 @@
 <body>
     <div class="container">
         <header>
-            <h1>🏛️ Politician Trading Data Assistant</h1>
-            <p class="subtitle">Ask questions about politician trading data powered by LLM and <a href="https://www.npmjs.com/package/@anguslin/mcp-capitol-trades" target="_blank" rel="noopener noreferrer">MCP Capitol Trades</a></p>
+            <div class="header-content">
+                <div class="header-title-section">
+                    <h1>🏛️ Politician Trading Data Assistant</h1>
+                    <p class="subtitle">Ask questions about politician trading data from <a href="https://www.capitoltrades.com/" target="_blank" rel="noopener noreferrer">capitoltrades.com</a></p>
+                </div>
+                <div class="header-buttons">
+                    <a href="https://github.com/anguslin/politician-trading-data-assistant" target="_blank" rel="noopener noreferrer" class="github-btn" title="View on GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                    <button id="architecture-btn" class="architecture-btn" title="Learn how it works">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        <span>How it works</span>
+                    </button>
+                </div>
+            </div>
         </header>
 
         <main>
@@ -25,7 +45,6 @@
                             <div class="example-item" data-example="What are the assets with high buy momentum?">"What are the assets with high buy momentum?"</div>
                             <div class="example-item" data-example="Get politician stats for Nancy Pelosi">"Get politician stats for Nancy Pelosi"</div>
                             <div class="example-item" data-example="What are the top traded stocks in the last 90 days?">"What are the top traded stocks in the last 90 days?"</div>
-                            <div class="example-item" data-example="What are the most active traders in Congress?">"What are the most active traders in Congress?"</div>
                         </div>
                     </div>
                 </div>
@@ -54,6 +73,109 @@
         <footer>
             <p>Powered by Hugging Face LLM & <a href="https://www.npmjs.com/package/@anguslin/mcp-capitol-trades" target="_blank" rel="noopener noreferrer">MCP Capitol Trades</a></p>
         </footer>
+    </div>
+
+    <!-- Architecture Modal -->
+    <div id="architecture-modal" class="architecture-modal">
+        <div class="architecture-modal-overlay"></div>
+        <div class="architecture-modal-content">
+            <div class="architecture-modal-header">
+                <h2>🏗️ System Architecture</h2>
+                <button class="architecture-modal-close" id="architecture-close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="architecture-diagram">
+                <div class="arch-row arch-row-top">
+                    <div class="arch-component arch-frontend">
+                        <div class="arch-icon">💻</div>
+                        <div class="arch-label">Frontend UI</div>
+                        <div class="arch-desc">GitHub Pages<br/>Static HTML/CSS/JS</div>
+                    </div>
+                    
+                    <div class="arch-arrow-horizontal">→</div>
+                    
+                    <div class="arch-component arch-backend">
+                        <div class="arch-icon">⚙️</div>
+                        <div class="arch-label">Backend Service</div>
+                        <div class="arch-desc">Express.js Server<br/>Hosted on Render</div>
+                    </div>
+                    
+                    <div class="arch-arrow-horizontal-bidirectional desktop-only">↔</div>
+                    
+                    <div class="arch-component arch-llm desktop-only">
+                        <div class="arch-icon">🤖</div>
+                        <div class="arch-label">Hugging Face LLM</div>
+                        <div class="arch-desc">Mistral-7B-Instruct<br/>Two-Stage Processing<br/>Uses Conversation History</div>
+                    </div>
+                </div>
+                
+                <div class="arch-arrow-up-center-bidirectional">↕</div>
+                
+                <div class="arch-row arch-row-bottom">
+                    <div class="arch-component arch-llm mobile-only">
+                        <div class="arch-icon">🤖</div>
+                        <div class="arch-label">Hugging Face LLM</div>
+                        <div class="arch-desc">Mistral-7B-Instruct<br/>Two-Stage Processing<br/>Uses Conversation History</div>
+                    </div>
+                    <div class="arch-component arch-mcp">
+                        <div class="arch-icon">📊</div>
+                        <div class="arch-label"><a href="https://www.npmjs.com/package/@anguslin/mcp-capitol-trades" target="_blank" rel="noopener noreferrer">MCP Capitol Trades</a></div>
+                        <div class="arch-desc">Model Context Protocol (MCP)<br/>stdio Transport<br/><a href="https://www.capitoltrades.com/" target="_blank" rel="noopener noreferrer">capitoltrades.com</a></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="architecture-details">
+                <h3>How It Works</h3>
+                <ol>
+                    <li><strong>User Input:</strong> You type a question in the chat interface</li>
+                    <li><strong>Security Check:</strong> Backend validates API key and CORS headers to ensure requests come from authorized origins</li>
+                    <li><strong>Backend Processing:</strong> Express.js server receives the request and loads conversation history from the current session</li>
+                    <li><strong>LLM Stage 1 - Function Detection:</strong> Hugging Face LLM analyzes your question along with conversation history to determine if MCP data is needed and which function to call</li>
+                    <li><strong>MCP Data Fetch:</strong> If data is needed, backend connects to the <a href="https://www.npmjs.com/package/@anguslin/mcp-capitol-trades" target="_blank" rel="noopener noreferrer">MCP Capitol Trades</a> server via stdio transport (spawned as child process). The MCP server web scrapes <a href="https://www.capitoltrades.com/" target="_blank" rel="noopener noreferrer">capitoltrades.com</a> to retrieve politician trading data. If JSON parsing fails, a keyword-based fallback mechanism attempts to detect the appropriate function.</li>
+                    <li><strong>LLM Stage 2 - Data Analysis:</strong> The LLM analyzes the scraped data along with the original question and generates a natural language response</li>
+                    <li><strong>History Storage:</strong> The conversation (question + response) is saved server-side to history.json file, keyed by user ID. This history is loaded and included in future LLM prompts for context continuity within a session</li>
+                    <li><strong>Display:</strong> The formatted response is sent back to the frontend and displayed in the chat</li>
+                </ol>
+                
+                <div class="architecture-security">
+                    <h4>🔒 Security Features</h4>
+                    <ul>
+                        <li><strong>CORS Protection:</strong> Backend restricts requests to configured GitHub Pages domains only</li>
+                        <li><strong>API Key Validation:</strong> All requests must include a valid API key in the <code>x-api-key</code> header</li>
+                        <li><strong>Rate Limiting:</strong> 100 requests per 15 minutes per IP address to prevent abuse</li>
+                    </ul>
+                </div>
+
+                <div class="architecture-data">
+                    <h4>📊 Data Sources</h4>
+                    <ul>
+                        <li><strong><a href="https://www.npmjs.com/package/@anguslin/mcp-capitol-trades" target="_blank" rel="noopener noreferrer">MCP Capitol Trades</a>:</strong> Web scrapes <a href="https://www.capitoltrades.com/" target="_blank" rel="noopener noreferrer">capitoltrades.com</a> to fetch real-time politician trading data</li>
+                        <li><strong>MCP Connection:</strong> Backend connects to MCP server via <strong>stdio (standard input/output)</strong> transport. The MCP server process is spawned by the backend as a child process and communicates through stdin/stdout pipes, enabling direct process-to-process communication without network overhead. Uses a singleton pattern - one MCP client connection is reused across requests.</li>
+                        <li><strong>Conversation History:</strong> Stored server-side in <code>history.json</code> file, keyed by user ID (from <code>x-user-id</code> header). Each user's history is limited to the last 30 messages. History is loaded and passed to the LLM for context in each request, enabling conversation continuity.</li>
+                        <li><strong>Two-Stage LLM Workflow:</strong> The system uses a two-stage approach: (1) LLM detects if MCP data is needed and which function to call, (2) If data is fetched, LLM analyzes the data and generates the final response. This separation allows for better error handling and more accurate responses.</li>
+                        <li><strong>Fallback Mechanism:</strong> If the LLM's JSON response cannot be parsed, the system falls back to keyword-based detection to attempt to identify the appropriate MCP function to call.</li>
+                    </ul>
+                </div>
+
+                <div class="architecture-tech">
+                    <h4>Technologies Used</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">GitHub Pages</span>
+                        <span class="tech-tag">Render</span>
+                        <span class="tech-tag">Express.js</span>
+                        <span class="tech-tag">Hugging Face</span>
+                        <span class="tech-tag">MCP Protocol</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Web Scraping</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="app.js"></script>
